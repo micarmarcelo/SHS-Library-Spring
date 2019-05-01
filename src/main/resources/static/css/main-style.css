@@ -1,0 +1,154 @@
+nav{
+    background-color: #00330e;
+    height: 100px !important;
+    margin-bottom: 50px;
+}
+
+.logo-container{
+    width: auto;
+    height: inherit;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 5px !important;
+    padding-left: 20px;
+}
+
+#dlsu-logo{
+    width: 80px;
+    height: 80px;
+}
+
+div.dlsu-text{
+    width: auto;
+    height: auto;
+    margin-left: 20px;
+}
+
+span{
+    display: block;
+    line-height:22px;
+    margin: 10px 0;
+}
+
+#nav-mobile{
+    padding: 20px;
+    list-style-type: none;
+    display:inline-block;
+    height: 100px;
+}
+
+/*.container .materials-container{
+    margin-left: 200px;
+}*/
+
+.dropdown-content li a{
+    color: #00330e !important;
+}
+
+.browser-default{
+    background-color: #00330e;
+    color: white;
+    border-style: none;
+    margin-top: 9px;
+}
+
+.filter-container{
+    position: relative;
+   left: 32%;
+}
+
+option{
+    background-color: white;
+    color: #00330e;
+}
+
+.material-container{
+    padding-top: 20px;!important;
+    padding-left: 10px !important;
+    padding-bottom: 20px !important;
+    width: 800px !important;
+    height: auto;
+    position: relative !important;
+    left: 15% !important;
+}
+
+.material-icon{
+    width: 50px;
+    height: 50px;
+}
+
+.material-type{
+    margin-right: 20px !important;
+}
+
+p{
+    margin: 0;
+}
+
+a{
+    color: #004c00;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.reserve{
+    color: cornflowerblue;
+}
+
+a.reserve.disabled{
+    color: dimgray;
+}
+
+a.reserve.disabled:hover{
+    text-decoration: none;
+}
+
+.modal{
+    width: 400px;
+}
+
+/*FOR LIBRARY.HTML*/
+.edit-icon{
+    position: relative;
+    right: -170%;
+}
+
+.delete-icon{
+    position: relative;
+    right: -120%;
+}
+
+.modal.edit{
+    width: 800px;
+}
+
+.browser-default.status{
+    background-color: white;
+    color: #00330e;
+}
+
+.btn-add{
+    position: fixed;
+    left: 1425px;
+    top: 650px;
+}
+
+.modal#add{
+    width: 800px;
+}
+
+.browser-default.rooms{
+    background-color: white;
+    color: #00330e;
+}
+
+.reserve-rooms-container{
+    padding: 20px;
+}
+
+.btn-reserve{
+    margin-top: 25px;
+    background-color: #00330e;
+}

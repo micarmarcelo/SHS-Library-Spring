@@ -1,0 +1,289 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>SHS Library Reservation System</title>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import .css-->
+	<link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/main-style.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/admin-style.css}"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+	<script type="text/javascript">
+        //Used for reservations..
+        function sendRoomID(startTime,endTime,id) {
+            if(id == 1){
+                $("#location").val("RoomNumber1");
+            } else if(id == 2){
+                $("#location").val("RoomNumber2");
+            } else if(id == 3){
+                $("#location").val("RoomNumber3");
+            } else if(id == 4){
+                $("#location").val("RoomNumber4");
+            } else if(id == 5){
+                $("#location").val("RoomNumber5");
+            }
+            $("#startTime").val(startTime);
+            $("#endTime").val(endTime);
+            $("#send").submit();
+        }
+	</script>
+
+</head>
+
+<body>
+<!--Header-->
+<nav>
+	<div class="nav-wrapper">
+		<div class="logo-container">
+			<img id="dlsu-logo" th:src="@{/images/dlsu-logo.png}">
+			<div class="dlsu-text">
+				<font size="3"><span>De La Salle University - Manila</span></font>
+				<font size="2"><span>SHS Library Reservation System</span></font>
+			</div>
+		</div>
+
+		<ul id="nav-mobile" class="right">
+			<ul class="left hide-on-med-and-down">
+				<li><a th:href="@{/user/home}">Home</a></li>
+				<li><a th:href="@{/user/displayBooks}">Books</a></li>
+				<li><a th:href="@{/user/displayMagazines}">Magazines</a></li>
+				<li><a th:href="@{/user/displayTheses}">Theses</a></li>
+				<li class="active"><a th:href="@{/user/displayMeetingRooms}">Rooms</a></li>
+				<li><a th:href="@{/user/displayAuthors}">Authors</a></li>
+				<li><a th:href="@{/user/displayPublishers}">Publishers</a></li>
+			</ul>
+
+			<li class="search">
+				<div class="row">
+					<form action="search" th:action="@{/user/resultsPage}" method="POST">
+						<div class="input-field col s12">
+							<input id="keyWord" name="keyWord" pattern="[a-zA-Z\s]+" type="text" class="validate">
+							<label for="keyWord">Search</label>
+						</div>
+					</form>
+				</div>
+			</li>
+
+			<!--<li><a href="#literary-materials-container" id="literary-materials">Literary Materials</a></li>-->
+			<!--<li><a href="#reserve-rooms-container" id="reserve-rooms">Rooms</a></li>-->
+			<li>
+				<!-- Dropdown Trigger -->
+				<a class='dropdown-button' href='#' data-activates='dropdown1'><i class="material-icons prefix">settings</i></a>
+
+				<!-- Dropdown Structure -->
+				<ul id='dropdown1' class='dropdown-content'>
+					<li><a href="#!"><span th:text="${user.username}"></span></a>
+					<li><a th:href="@{/user/viewAccount}">View Account</a></li>
+					<li><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+</nav>
+
+<div class="container">
+
+	<!--User Action Tabs-->
+	<div class="row">
+		<div class="col s12 action-tab">
+			<ul class="tabs">
+				<li class="tab col s2"><a href="#test1">Room 1</a></li>
+				<li class="tab col s3"><a href="#test2">Room 2</a></li>
+				<li class="tab col s2"><a href="#test3">Room 3</a></li>
+				<li class="tab col s3"><a href="#test4">Room 4</a></li>
+				<li class="tab col s2"><a href="#test5">Room 5</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="test1">
+		<div class="tab-containerdivs">
+			<div class="timeTable">
+				<div class="container">
+					<h2>Reserve for Tomorrow</h2>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="schedule : ${schedule1}">
+							<td th:text="${schedule.startTime}"></td>
+							<td th:text="${schedule.endTime}"></td>
+							<td><span th:if="${schedule.status} == 0">Available</span>
+								<span th:if="${schedule.status} == 1">Not Available</span></td>
+							<td><button th:if="${schedule.status} == 0"
+										class="btn btn-success" th:onclick="'sendRoomID(\''+ ${schedule.startTime} +'\',
+											\''+ ${schedule.endTime} +'\',1);'">Reserve</button>
+								<button th:if="${schedule.status} == 1"
+										class="btn btn-success" disabled>Reserve</button></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="test2">
+		<div class="tab-containerdivs">
+			<div class="timeTable">
+				<div class="container">
+					<h2>Reserve for Tomorrow</h2>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="schedule : ${schedule2}">
+							<td th:text="${schedule.startTime}"></td>
+							<td th:text="${schedule.endTime}"></td>
+							<td><span th:if="${schedule.status} == 0">Available</span>
+								<span th:if="${schedule.status} == 1">Not Available</span></td>
+							<td><button th:if="${schedule.status} == 0"
+										class="btn btn-success" th:onclick="'sendRoomID(\''+ ${schedule.startTime} +'\',
+											\''+ ${schedule.endTime} +'\',2);'">Reserve</button>
+								<button th:if="${schedule.status} == 1"
+										class="btn btn-success" disabled>Reserve</button></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="test3">
+		<div class="tab-containerdivs">
+			<div class="timeTable">
+				<div class="container">
+					<h2>Reserve for Tomorrow</h2>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="schedule : ${schedule3}">
+							<td th:text="${schedule.startTime}"></td>
+							<td th:text="${schedule.endTime}"></td>
+							<td><span th:if="${schedule.status} == 0">Available</span>
+								<span th:if="${schedule.status} == 1">Not Available</span></td>
+							<td><button th:if="${schedule.status} == 0"
+										class="btn btn-success" th:onclick="'sendRoomID(\''+ ${schedule.startTime} +'\',
+											\''+ ${schedule.endTime} +'\',3);'">Reserve</button>
+								<button th:if="${schedule.status} == 1"
+										class="btn btn-success" disabled>Reserve</button></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="test4">
+		<div class="tab-containerdivs">
+			<div class="timeTable">
+				<div class="container">
+					<h2>Reserve for Tomorrow</h2>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="schedule : ${schedule4}">
+							<td th:text="${schedule.startTime}"></td>
+							<td th:text="${schedule.endTime}"></td>
+							<td><span th:if="${schedule.status} == 0">Available</span>
+								<span th:if="${schedule.status} == 1">Not Available</span></td>
+							<td><button th:if="${schedule.status} == 0"
+										class="btn btn-success" th:onclick="'sendRoomID(\''+ ${schedule.startTime} +'\',
+											\''+ ${schedule.endTime} +'\',4);'">Reserve</button>
+								<button th:if="${schedule.status} == 1"
+										class="btn btn-success" disabled>Reserve</button></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="test5">
+		<div class="tab-containerdivs">
+			<div class="timeTable">
+				<div class="container">
+					<h2>Reserve for Tomorrow</h2>
+					<table class="table">
+						<thead>
+						<tr>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Status</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="schedule : ${schedule5}">
+							<td th:text="${schedule.startTime}"></td>
+							<td th:text="${schedule.endTime}"></td>
+							<td><span th:if="${schedule.status} == 0">Available</span>
+								<span th:if="${schedule.status} == 1">Not Available</span></td>
+							<td><button th:if="${schedule.status} == 0"
+										class="btn btn-success" th:onclick="'sendRoomID(\''+ ${schedule.startTime} +'\',
+											\''+ ${schedule.endTime} +'\',5);'">Reserve</button>
+								<button th:if="${schedule.status} == 1"
+										class="btn btn-success" disabled>Reserve</button></td>
+						</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br></br>
+	<br></br>
+	<br></br>
+
+	<form id="send" th:action="@{/user/processMeetingRooms}" method="POST">
+		<input type="hidden" name="location" id="location" />
+		<input type="hidden" name="startTime" id="startTime" />
+		<input type="hidden" name="endTime" id="endTime" />
+	</form>
+
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+</body>
+
+</html>

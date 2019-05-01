@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>EditAccount</title>
+	<link rel="stylesheet" media="screen" type="text/css" th:href="@{/css/editAccount.css}" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body class="body" style="background-color:#f6f6f6">	
+	
+	<div class="registrationForm">
+		<div class="container">
+			<h2 id="header">EDIT PROFILE</h2>
+			<form class="form-horizontal" action='editaccount' method="POST">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label"  for="username">Username</label>
+						<div class="controls">
+							<input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+							<p class="help-block">Username can contain any letters or numbers, without spaces</p>
+						</div>
+					</div>
+			 
+					<div class="control-group">
+						<label class="control-label" for="email">E-mail</label>
+						<div class="controls">
+							<input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+							<p class="help-block">Please provide your E-mail</p>
+						</div>
+					</div>
+			 
+					<div class="control-group">
+						<label class="control-label" for="password">Password</label>
+						<div class="controls">
+							<input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+							<p class="help-block">Password should be at least 4 characters</p>
+						</div>
+					</div>
+			 
+					<div class="control-group">
+						<label class="control-label"  for="password_confirm">Password (Confirm)</label>
+						<div class="controls">
+							<input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+							<p class="help-block">Please confirm password</p>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label"  for="password_confirm">Full Name:</label>
+						<div class="controls">
+							<input type="text" id="firstName" name="firstName" placeholder="" class="input-xlarge">
+							<p class="help-block">First Name</p>
+							<input type="text" id="middleI" name="middleI" placeholder="" class="input-xlarge">
+							<p class="help-block">Middle Initial</p>
+							<input type="text" id="lastName" name="lastName" placeholder="" class="input-xlarge">
+							<p class="help-block">Last Name</p>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="email">Birthday:</label>
+						<div class="controls">
+							<div class="container">
+								<div class="dropdown">
+									<label>Month: &nbsp</label>
+									<select>
+										<option value="january">January</option>
+										<option value="february">February</option>
+										<option value="march">March</option>
+										<option value="april">April</option>
+										<option value="may">May</option>
+										<option value="june">June</option>
+										<option value="july">July</option>
+										<option value="august">August</option>
+										<option value="september">September</option>
+										<option value="october">October</option>
+										<option value="november">November</option>
+										<option value="december">December</option>
+									</select>
+								</div>
+								<div class="dropdown">
+									<label>Day: &nbsp</label>
+									<select>
+										<option value="1">01</option>
+										<option value="2">02</option>
+										<option value="3">03</option>
+										<option value="4">04</option>
+										<option value="5">05</option>
+										<option value="6">06</option>
+										<option value="7">07</option>
+										<option value="8">08</option>
+										<option value="9">09</option>
+										<option value="10">10</option>
+										<option value="11">11</option>
+										<option value="12">12</option>
+										<option value="13">13</option>
+										<option value="14">14</option>
+										<option value="15">15</option>
+										<option value="16">16</option>
+										<option value="17">17</option>
+										<option value="18">18</option>
+										<option value="19">19</option>
+										<option value="20">20</option>
+										<option value="21">21</option>
+										<option value="22">22</option>
+										<option value="23">23</option>
+										<option value="24">24</option>
+										<option value="25">25</option>
+										<option value="26">26</option>
+										<option value="27">27</option>
+										<option value="28">28</option>
+										<option value="29">29</option>
+										<option value="30">30</option>
+										<option value="31">31</option>
+									</select>
+								</div>
+								<div class="dropdown">
+									<label>Year: &nbsp</label>
+									<select>
+										<option value="2017">2017</option>
+										<option value="2016">2016</option>
+										<option value="2015">2015</option>
+										<option value="2014">2014</option>
+										<option value="2013">2013</option>
+										<option value="2012">2012</option>
+										<option value="2011">2011</option>
+										<option value="2010">2010</option>
+										<option value="2009">2009</option>
+										<option value="2008">2008</option>
+										<option value="2007">2007</option>
+										<option value="2006">2006</option>
+										<option value="2005">2005</option>
+										<option value="2004">2004</option>
+										<option value="2003">2003</option>
+									</select>
+								</div>
+							</div>
+							<p class="help-block">Please provide your correct birthday</p>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="email">Student/Employee Id Number:</label>
+						<div class="controls">
+							<input type="text" id="idNumber" name="idNumber" placeholder="" class="input-xlarge">
+							<p class="help-block">Please provide your identification number</p>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="email">Secret Question:</label>
+						<div class="controls">
+							<input type="text" id="secretQuestion" name="secretQuestion" placeholder="" class="input-xlarge">
+							<p class="help-block">Please provide new your security question</p>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="email">Answer to secret question:</label>
+						<div class="controls">
+							<input type="text" id="secretAnswer" name="secretAnswer" placeholder="" class="input-xlarge">
+							<p class="help-block">Please provide your new answer to the input secret question</p>
+						</div>
+					</div>
+			 
+					<div class="control-group">
+						<div class="controls">
+							<button class="btn btn-success">Save</button>
+							<button class="btn btn-danger">Cancel</button>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	
+</body>
+
+</html>

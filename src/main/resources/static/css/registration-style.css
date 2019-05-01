@@ -1,0 +1,29 @@
+.container{
+    padding-top: 50px;
+    padding-right: 150px;
+    padding-left: 150px;
+}
+
+.registration-container{
+    box-shadow: 3px 3px 1px #c8c8c8;
+    background-color: #fcfcfc;
+    padding: 50px;
+}
+
+#password_information{
+    margin-top: 25px !important;
+    margin-left: -15px !important;
+}
+
+#user_type{
+    margin-top: 5px;
+}
+
+#btn-register{
+    background-color: #00330e;
+    width: 200px;
+    height: 50px;
+    margin-top: 30px;
+    margin-left: 43%;
+    margin-bottom: 30px;
+}

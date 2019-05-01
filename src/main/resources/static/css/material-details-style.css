@@ -1,0 +1,104 @@
+nav{
+    background-color: #00330e;
+    height: 100px !important;
+    margin-bottom: 50px;
+}
+
+.logo-container{
+    width: auto;
+    height: inherit;
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 5px !important;
+    padding-left: 20px;
+}
+
+#dlsu-logo{
+    width: 80px;
+    height: 80px;
+}
+
+div.dlsu-text{
+    width: auto;
+    height: auto;
+    margin-left: 20px;
+}
+
+span{
+    display: block;
+    line-height:22px;
+    margin: 10px 0;
+}
+
+#nav-mobile{
+    padding: 20px;
+    list-style-type: none;
+    display:inline-block;
+    height: 100px;
+}
+
+.dropdown-content li a{
+    color: #00330e !important;
+}
+
+.browser-default{
+    background-color: #00330e;
+    color: white;
+    border-style: none;
+    margin-top: 9px;
+}
+
+
+option{
+    background-color: white;
+    color: #00330e;
+}
+
+.container{
+    background-color: whitesmoke;
+}
+
+.material-container{
+    padding-top: 20px;!important;
+    padding-left: 10px !important;
+    padding-bottom: 20px !important;
+    width: 800px !important;
+    height: auto;
+    position: relative !important;
+    left: 15% !important;
+}
+
+.material-icon{
+    width: 50px;
+    height: 50px;
+}
+
+.material-type{
+    margin-right: 20px !important;
+}
+
+p{
+    margin: 0;
+}
+
+a{
+    color: #004c00;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.waves-effect.waves-light.btn{
+    background-color: #00330e;
+    color: white;
+    text-decoration: none;
+}
+
+#reserve-modal{
+    width: 400px;
+}
+
+#review-modal{
+    width: 550px;
+}

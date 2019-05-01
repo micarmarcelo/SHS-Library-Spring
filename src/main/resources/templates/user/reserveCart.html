@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>SHS Library Reservation System</title>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import .css-->
+	<link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/main-style.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{css/cart.css}"/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<script type="text/javascript">
+        //Used for confirming item reservations..
+        function sendUserID(id) {
+            var userid = id;
+            $("#id").val(userid);
+            $("#send").submit();
+        }
+
+        //Used for deleting item reservations..
+        function sendItemID(id) {
+            console.log(id);
+            var itemid = id;
+            $("#itemid").val(itemid);
+            $("#send1").submit();
+        }
+	</script>
+</head>
+
+<body>
+<form id="send" th:action="@{/user/confirmReservationCart}" method="POST">
+	<input type="hidden" name="id" id="id" />
+</form>
+<form id="send1" th:action="@{/user/deleteItemReservation}" method="POST">
+	<input type="hidden" name="itemid" id="itemid" />
+</form>
+<!--Header-->
+<nav>
+	<div class="nav-wrapper">
+		<div class="logo-container">
+			<img id="dlsu-logo" th:src="@{/images/dlsu-logo.png}">
+			<div class="dlsu-text">
+				<font size="3"><span>De La Salle University - Manila</span></font>
+				<font size="2"><span>SHS Library Reservation System</span></font>
+			</div>
+		</div>
+
+		<ul id="nav-mobile" class="right">
+
+			<ul class="left hide-on-med-and-down">
+				<li><a th:href="@{/user/home}">Home</a></li>
+				<li><a th:href="@{/user/displayBooks}">Books</a></li>
+				<li><a th:href="@{/user/displayMagazines}">Magazines</a></li>
+				<li><a th:href="@{/user/displayTheses}">Theses</a></li>
+				<li><a th:href="@{/user/displayMeetingRooms}">Rooms</a></li>
+				<li><a th:href="@{/user/displayAuthors}">Authors</a></li>
+				<li><a th:href="@{/user/displayAuthors}">Publishers</a></li>
+			</ul>
+			<li class="search">
+				<div class="row">
+					<form action="search" th:action="@{/user/resultsPage}" method="POST">
+						<div class="input-field col s12">
+							<input id="keyWord" name="keyWord" pattern="[a-zA-Z\s]+" type="text" class="validate">
+							<label for="keyWord">Search</label>
+						</div>
+					</form>
+				</div>
+			</li>
+			<li>
+				<!-- Dropdown Trigger -->
+				<a class='dropdown-button' href='#' data-activates='dropdown1'><i class="material-icons prefix">settings</i></a>
+
+				<!-- Dropdown Structure -->
+				<ul id='dropdown1' class='dropdown-content'>
+					<li><a href="#!"><span th:text="${user.username}"></span></a>
+					<li><a th:href="@{/user/viewAccount}">View Account</a></li>
+					<li><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+</nav>
+
+<!--Forgot Password Container-->
+<div class="container">
+	<h5>Cart Items</h5>
+	<table class="striped responsive-table">
+		<thead>
+		<th>Item Name</th>
+		<th>Type</th>
+		<th>Borrow Date</th>
+		<th>Return Date</th>
+		</thead>
+		<tbody>
+		<tr th:each="itemReservation : ${cartItems}">
+			<td th:text="${itemReservation.itemName}"></td>
+			<td th:text="${itemReservation.itemType}"></td>
+			<td th:text="${itemReservation.borrowDate}"></td>
+			<td th:text="${itemReservation.returnDate}"></td>
+			<td><button class="btn btn-danger"
+						th:onclick="'sendItemID(\''+ ${itemReservation.id} +'\');'">X</button>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+
+	<a class="waves-effect waves-light btn" style="margin-top: 20px; float: right; background-color: #00330e;" th:if="${size} == 1" id="checkoutBttn" class="btn btn-success" th:onclick="'sendUserID(\''+ ${userID} +'\');'" >Confirm Reservation</a>
+	<a class="waves-effect waves-light btn" style="margin-top: 20px; float: right; background-color: #00330e;" th:if="${size} == 0" id="checkoutBttn" class="btn btn-danger"  disabled>Confirm Reservation</a>
+	<a class="waves-effect waves-light btn" style="margin-top: 20px; float: left; background-color: #00330e;">Back</a>
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+</body>
+
+</ht>

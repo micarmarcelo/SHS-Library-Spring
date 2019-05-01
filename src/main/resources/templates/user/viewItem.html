@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>SHS Library Reservation System</title>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!--Import .css-->
+	<link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/material-details-style.css}"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<script type="text/javascript">
+        function sendReservation(dateNow,dateNextWeek) {
+            console.log(dateNow+" "+dateNextWeek);
+            var dateNow = dateNow;
+            var dateNextWeek = dateNextWeek;
+            $("#status").val(3);
+            $("#borrowDate").val(dateNow);
+            $("#returnDate").val(dateNextWeek);
+            $("#send").submit();
+        }
+	</script>
+</head>
+
+<!--Header-->
+
+<nav>
+	<div class="nav-wrapper">
+		<div class="logo-container">
+			<img id="dlsu-logo" th:src="@{/images/dlsu-logo.png}">
+			<div class="dlsu-text">
+				<font size="3"><span>De La Salle University - Manila</span></font>
+				<font size="2"><span>SHS Library Reservation System</span></font>
+			</div>
+		</div>
+
+		<ul id="nav-mobile" class="right">
+
+			<ul class="left hide-on-med-and-down">
+				<li><a th:href="@{/user/home}">Home</a></li>
+				<li><a th:href="@{/user/displayBooks}">Books</a></li>
+				<li><a th:href="@{/user/displayMagazines}">Magazines</a></li>
+				<li><a th:href="@{/user/displayTheses}">Theses</a></li>
+				<li><a th:href="@{/user/displayMeetingRooms}">Rooms</a></li>
+				<li><a th:href="@{/user/displayAuthors}">Authors</a></li>
+				<li><a th:href="@{/user/displayAuthors}">Publishers</a></li>
+			</ul>
+			<li class="search">
+				<div class="row">
+					<form action="search" th:action="@{/user/resultsPage}" method="POST">
+						<div class="input-field col s12">
+							<input id="keyWord" name="keyWord" pattern="[a-zA-Z\s]+" type="text" class="validate">
+							<label for="keyWord">Search</label>
+						</div>
+					</form>
+				</div>
+			</li>
+			<li>
+				<!-- Dropdown Trigger -->
+				<a class='dropdown-button' href='#' data-activates='dropdown1'><i class="material-icons prefix">settings</i></a>
+
+				<!-- Dropdown Structure -->
+				<ul id='dropdown1' class='dropdown-content'>
+					<li><a href="#!">Edit Profile</a></li>
+					<li><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</li>
+		</ul>
+
+	</div>
+</nav>
+
+<!--Main-->
+<div class="container grey lighten-4" style="padding: 20px;">
+	<form id="send" th:object="${itemReservation}" th:action="@{/user/processCart}" method="POST">
+		<input type="hidden" name="item_id" id="item_id"  th:value="${item.id}"  />
+		<input type="hidden" name="user_id" id="user_id"  th:value="${user.id}" />
+		<input type="hidden" name="status" id="status" />
+		<input type="hidden" name="borrowDate" id="borrowDate" />
+		<input type="hidden" name="returnDate" id="returnDate" />
+	</form>
+
+	<div class="row">
+		<div class="col s1 center">
+			<div th:id="${item}">
+				<img class="material-icon" th:src="@{/images/magazine.png}">
+			</div>
+
+			<p class=""><b>Magazine</b></p>
+		</div>
+		<div class="col s7">
+			<a id="item2"><b th:text="${item.itemName}"</b></a>
+			<p><b>Author/s: </b><i th:text="${item.author}"></i></p>
+			<p><b>Publisher/s: </b><i th:text="${item.publisher}"></i></p>
+			<p><b>Year: </b><i th:text="${item.yearPublished}"></i></p>
+			<br>
+			<p><b>Location: </b><i th:text="${item.location}"></i></p>
+			<p><b>Tags: </b> <i>feature writing, journalism</i></p>
+
+			<br></br>
+			<b th:if="${status} == 1" style="color: #1B5E20;">STATUS: AVAILABLE</b>
+			<br></br>
+			<!--<button   type="button" class="btn modal-trigger" data-toggle="modal" data-target="#addItemModal">Reserve</button>-->
+			<a th:if="${status} == 1" class="waves-effect waves-light btn" href="#reserve-modal">Reserve</a>
+
+			<b th:if="${status} == 2" style="color: #C62828;">STATUS: NOT AVAILABLE</b>
+			<br></br>
+			<b th:if="${status} == 2" class="label label-danger">Expected Date of Availability: <b><u th:text="${returnDate}"></u></b></b>
+
+			<b th:if="${status} == 3" style="color: #C62828;">STATUS: AVAILABLE, NOTE: ALREADY IN SOMEONE'S RESERVE CART</b>
+			<br></br>
+			<button th:if="${status} == 3" type="button" class="btn btn-warning" data-toggle="modal" data-target="#addItemModal">Reserve</button>
+
+			<b th:if="${status} == 5" class="label label-danger">STATUS: You are currently borrowing this item.</b>
+			<br></br>
+			<b th:if="${status} == 5" class="label label-danger">Please Return By: <b th:text="${returnDate}"></b></b>
+
+			<b th:if="${status} == 4" class="label label-info">STATUS: ALREADY IN CART</b>
+
+
+
+
+		</div>
+
+
+		<br></br>
+		<br></br>
+
+
+		<!--<div class="col s4">-->
+		<!--<a class="waves-effect waves-light btn" href="#reserve-modal">Reserve</a>-->
+		<!--<a class="waves-effect waves-light btn" href="#review-modal">Review Material</a>-->
+		<!--</div>-->
+	</div>
+
+</div>
+
+<br></br><br></br>
+
+<div class="container grey lighten-4" style="padding: 20px;">
+	<h6><b>Reviews:</b></h6><br></br>
+	<div th:each="review : ${reviews}">
+		<b th:text="${review.reviewer}": </b> <i th:text="${review.review}"></i></p><br></br>
+	</div>
+</div>
+
+<!--Reservation Modal Structure -->
+<div id="reserve-modal" class="modal">
+	<div class="modal-content">
+		<h4>Reserve Material</h4>
+		<p>You are about to add Item: <span th:text="${item.itemName}"></span> into your reserve cart.</p>
+		<br></br>
+		<p>Note:</p>
+		<p>Reserve Date: <span th:text="${dateNow}"></span></p>
+		<p>Expected Return Date: <span th:text="${dateNextWeek}"></span></p>
+	</div>
+	<div class="modal-footer">
+		<input type="submit" th:onclick="'sendReservation(\''+ ${dateNow} +'\',\''+ ${dateNextWeek} +'\');'" name="addToCartContinue" class="btn btn-success" style="float: right" value="Confirm Reservation" />
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">No</a>
+	</div>
+</div>
+
+
+<!--Review Modal Structure -->
+<div id="review-modal" class="modal">
+	<div class="modal-content">
+		<h4>Review Material</h4>
+		<div class="row">
+			<form class="col s12">
+				<div class="row">
+					<div class="input-field col s12">
+						<textarea id="textarea1" class="materialize-textarea"></textarea>
+						<label for="textarea1">Write a review</label>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">OK</a>
+		<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+	</div>
+</div>
+
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script>
+    $(document).ready(function(){
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+    });
+</script>
+</body>
+
+</html>

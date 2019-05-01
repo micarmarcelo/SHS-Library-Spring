@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>SHS Library Reservation System</title>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import .css-->
+	<link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" th:href="@{css/registration-style.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{css/main-style.css}"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+</head>
+
+<body>
+<!--Header-->
+<nav>
+	<div class="nav-wrapper">
+		<div class="logo-container">
+			<img id="dlsu-logo" th:src="@{images/dlsu-logo.png}">
+			<div class="dlsu-text">
+				<font size="3"><span>De La Salle University - Manila</span></font>
+				<font size="2"><span>SHS Library Reservation System</span></font>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<!--Registration Container-->
+<div class="container">
+	<h5>Create an account</h5>
+	<div class="registration-container">
+		<form th:action="@{/registration}" th:object="${user}" method="POST">
+			<div class="row">
+				<div class="input-field col s5">
+					<input placeholder="juandelacruz" pattern="[A-Za-z0-9_]{6,20}" oninvalid="setCustomValidity('Minimum 6 characters, Alphabet or Numbers only, underscore. ')"
+						   onchange="try{setCustomValidity('')}catch(e){}" maxlength="12" id="username" name="username" type="text" class="validate" required>
+					<label for="username">Username</label>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div class="input-field col s5">
+					<input placeholder="Juan" pattern="[a-zA-Z-\s]+" maxlength="20" id="firstName" name="firstName" type="text" class="validate" required>
+					<label for="firstName">First Name</label>
+				</div>
+				<div class="input-field col s5">
+					<input placeholder="Dela Cruz" pattern="[a-zA-Z-\s]+" id="lastName" name="lastName"  type="text" class="validate" required>
+					<label for="lastName">Last Name</label>
+				</div>
+				<div class="input-field col s2">
+					<input placeholder="A." pattern="[a-zA-Z-\s]+" id="middleInitial" name="middleInitial" type="text" class="validate" required>
+					<label for="middleInitial">Middle Initial</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col s6">
+					<input placeholder="Birthdate" id="birthday" name="birthday" type="date" class="datepicker" data-date-format="mm/dd/yyyy">
+				</div>
+				<div class="col s6">
+					<div class="row" name="accountType" id="accountType">
+						<div class="col s6">
+							<input type="radio" name="accountType" value="1" id="faculty" />
+							<label for="faculty">Faculty</label>
+						</div>
+						<div class="col s6">
+							<input type="radio" name="accountType" value="2" id="student" />
+							<label for="student">Student</label>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s6">
+					<input placeholder="11xxxxxx" id="idNumber" name="es_number" type="text" class="validate" onkeypress='return event.charCode >= 48 && event.charCode <= 57' maxlength="8" required>
+					<label for="idNumber">ID Number</label>
+				</div>
+				<div class="input-field col s6">
+					<input placeholder="sample@dlsu.edu.ph" id="email" name="email" type="email" class="validate" required>
+					<label for="email">Email</label>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="input-field col s5">
+					<input id="password" name="password" type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" oninvalid="setCustomValidity('Requires Uppercase, Lowercase, Number OR Special Char, minimum 8 chars')"
+						   onchange="try{setCustomValidity('')}catch(e){}" class="validate" onkeyup="return checkPassword(this);" required>
+					<label for="password">Password</label>
+				</div>
+				<!--<i id="password_information" class="material-icons prefix col s1">information</i>-->
+				<div class="input-field col s6">
+					<input id="password_confirm" type="password" onkeyup="checkPass(); return false;" name="password_confirm" class="validate" required>
+					<label for="password_confirm">Re-enter Password</label>
+					<span id="confirmMessage" class="confirmMessage"></span>
+				</div>
+			</div>
+
+			<label>Security Question 1</label>
+			<select class="browser-default" name="secretQuestion" id="secretQuestion">
+				<option value="" disabled>Choose your option</option>
+				<option value="What was the first concert you attended?">What was the first concert you attended?</option>
+				<option value="What is your guilty pleasure?">What is your guilty pleasure?</option>
+				<option value="What is your pet peeve?">What is your pet peeve?</option>
+				<option value="Who is your first crush?">Who is your first crush?</option>
+				<option value="What is the first name of the person you first kissed?">What is the first name of the person you first kissed?</option>
+			</select>
+			<div class="input-field col s12">
+				<input name="secretAnswer" id="secretAnswer" type="text" class="validate">
+				<label for="secretAnswer">Answer for Security Question 1</label>
+			</div>
+			<!--<label>Security Question 2</label>-->
+			<!--<select class="browser-default" name="id_question2" id="id_question2">-->
+			<!--<option value="" disabled >Choose your option</option>-->
+			<!--<option value="1">Option 1</option>-->
+			<!--<option value="2">Option 2</option>-->
+			<!--<option value="3">Option 3</option>-->
+			<!--</select>-->
+			<!--<div class="input-field col s12">-->
+			<!--<input name="answer_question2" id="answer_question2" type="text" class="validate">-->
+			<!--<label for="answer_question2">Answer for Security Question 2</label>-->
+			<!--</div>-->
+			<!--<input name="status" id="status" type="hidden" value="Unlocked">-->
+
+			<div class="input-field col s12">
+				<button id="btn-register" class="btn waves-effect waves-light" type="submit" name="action">Register</button>
+				<a th:href="@{/login}" class="btn waves-effect red darken-3" type="button" name="btnCancel">Cancel</a>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+<!--<button id="btn-register"  type="submit" name="action">Register</button>-->
+</div>
+
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+    $('#first_name').on('keypress', function (event) {
+        var regex = new RegExp("^[a-zA-Z0-9]+$");
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+        if (!regex.test(key)) {
+            event.preventDefault();
+            return false;
+        }
+    });
+
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+</script>
+<script>
+    function checkPassword(str)
+    {
+        var re = /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+        return re.test(str);
+    }
+
+    function checkPass()
+    {
+        //Store the password field objects into variables ...
+        var pass1 = document.getElementById('password');
+        var pass2 = document.getElementById('password_confirm');
+        //Store the Confimation Message Object ...
+        var message = document.getElementById('confirmMessage');
+        //Set the colors we will be using ...
+        var goodColor = "transparent";
+        var badColor = "red";
+        //Compare the values in the password field
+        //and the confirmation field
+        if(pass1.value == pass2.value){
+            //The passwords match.
+            //Set the color to the good color and inform
+            //the user that they have entered the correct password
+            pass2.style.backgroundColor = goodColor;
+            message.style.color = "black";
+            message.innerHTML = "Passwords Match!";
+            document.getElementById("btn-register").disabled = false;
+        }else{
+            //The passwords do not match.
+            //Set the color to the bad color and
+            //notify the user.
+            pass2.style.backgroundColor = goodColor;
+            message.style.color = badColor;
+            message.innerHTML = "Passwords Do Not Match!";
+            document.getElementById("btn-register").disabled = true;
+        }
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>VIEW ACCOUNT - SHS Library Reservation System</title>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import .css-->
+	<link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/main-style.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/admin-style.css}"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<script type="text/javascript">
+        function sendID(id) {
+            console.log(id);
+            var id = id;
+            $("#item_id").val(id);
+            var review = document.getElementById(id).value;
+            console.log(review);
+            $("#review").val(review);
+            $("#send").submit();
+        }
+	</script>
+
+</head>
+
+<body>
+<!--Header-->
+<nav>
+	<div class="nav-wrapper">
+		<div class="logo-container">
+			<img id="dlsu-logo" th:src="@{/images/dlsu-logo.png}">
+			<div class="dlsu-text">
+				<font size="3"><span>De La Salle University - Manila</span></font>
+				<font size="2"><span>SHS Library Reservation System</span></font>
+			</div>
+		</div>
+
+		<ul id="nav-mobile" class="right">
+
+			<ul class="left hide-on-med-and-down">
+				<li><a th:href="@{/user/home}">Home</a></li>
+				<li><a th:href="@{/user/displayBooks}">Books</a></li>
+				<li><a th:href="@{/user/displayMagazines}">Magazines</a></li>
+				<li><a th:href="@{/user/displayTheses}">Theses</a></li>
+				<li><a th:href="@{/user/displayMeetingRooms}">Rooms</a></li>
+				<li><a th:href="@{/user/displayAuthors}">Authors</a></li>
+				<li><a th:href="@{/user/displayPublishers}">Publishers</a></li>
+			</ul>
+			<li class="search">
+				<div class="row">
+					<form action="search" th:action="@{/user/resultsPage}" method="POST">
+						<div class="input-field col s12">
+							<input id="keyWord" name="keyWord" pattern="[a-zA-Z\s]+" type="text" class="validate">
+							<label for="keyWord">Search</label>
+						</div>
+					</form>
+				</div>
+			</li>
+			<li>
+
+			<li><a th:href="@{/logout}">Logout</a></li>
+			</li>
+		</ul>
+
+	</div>
+</nav>
+
+<div class="container">
+	<form id="send" th:action="@{/user/processReview}" method="POST">
+		<input type="hidden" name="item_id" id="item_id" />
+		<input type="hidden" name="review" id="review" />
+	</form>
+
+	<form id="approved" th:action="@{/user/changePassword}" method="POST">
+		<input type="hidden" name="password" id="password" /> <input
+			type="hidden" name="checkPassword" id="checkPassword" />
+	</form>
+
+	<!--Administrator Action Tabs-->
+	<div class="row">
+		<div class="col s12 action-tab">
+			<ul class="tabs">
+				<li class="tab col s4"><a href="#test1">Change Password</a></li>
+				<li class="tab col s4"><a href="#test2">Book Reservation History</a></li>
+				<li class="tab col s4"><a href="#test3">Room Reservation History</a></li>
+			</ul>
+		</div>
+	</div>
+	<div id="test1">
+
+		<input type="hidden" id="firstName" name="firstName" th:value="${user.firstName}" />
+		<input type="hidden" id="lastName" name="lastName" th:value="${user.lastName}" />
+		<input type="hidden" id="username" name="username" th:value="${user.username}" />
+
+		<p>Name: <h5 th:text="${user.firstName}"></h5></p>
+		<br> </br> <p>Email: <h5 th:text="${user.email}"></h5></p>
+		<!--<br> </br> <h5>ID NUMBER: <span th:text="${user.studentEmployeeNumber}"></span></h5> <br> </br>-->
+
+		<p>Account
+			Type: <h5 th:if="${user.accountType} == 1">Faculty</h5> <span
+					th:if="${user.accountType} == 2">Student</span>
+		</p> <br> </br>
+
+		<!--<a type="button" class="waves-effect waves-light btn" href="#changePasswordModal">Change Password</a>-->
+
+
+			<div class="input-field col s5">
+				<input id="oldPassword" name="oldPassword" type="password" class="validate" maxlength="16" required>
+				<label for="password">Old Password</label>
+			</div>
+
+
+		<div class="row">
+			<div class="input-field col s5">
+				<input id="newPassword" name="newPassword" type="password" class="validate" maxlength="16" required>
+				<label for="password">New Password</label>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="input-field col s5">
+				<input id="confirmNewPassword" name="confirmNewPassword" type="password" class="validate" required>
+				<label for="password">Re-enter Password</label>
+			</div>
+		</div>
+
+		<!--<input type="submit" th:onclick="'changePassword();'" class="btn btn-success" style="float: right" value="Change Password" />-->
+		<input type="submit" th:onclick="'changePassword();'" class="btn btn-success" style="background-color: #00330e; color: white;" value="Save" />
+
+	</div>
+
+	<div id="test2">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Title</th>
+				<th>Type</th>
+				<th>Date Borrowed</th>
+				<th>Date Returned</th>
+				<th></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="itemReservation : ${cartItems}">
+				<td th:text="${itemReservation.itemName}"></td>
+				<td th:text="${itemReservation.itemType}"></td>
+				<td th:text="${itemReservation.borrowDate}"></td>
+				<td th:text="${itemReservation.returnDate}"></td>
+				<td><input th:if="${itemReservation.can_review} == 1"
+						   type="text" th:name="${itemReservation.item_id}" th:id="${itemReservation.item_id}" />&nbsp
+					<button th:if="${itemReservation.can_review} == 1"
+							class="btn btn-success"
+							th:onclick="'sendID(\''+ ${itemReservation.item_id} +'\');'">Review</button>
+					<input th:if="${itemReservation.can_review} == 0" type="text"
+						   disabled />&nbsp
+					<button th:if="${itemReservation.can_review} == 0"
+							class="btn btn-success"
+							th:onclick="'sendID(\''+ ${itemReservation.item_id} +'\');'"
+							disabled>Review</button></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="test3">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Location</th>
+				<th>Date</th>
+				<th>Start Time</th>
+				<th>End Time</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="room : ${roomTransactions}">
+				<td th:text="${room.location}"></td>
+				<td th:text="${room.date}"></td>
+				<td th:text="${room.startTime}"></td>
+				<td th:text="${room.endTime}"></td>
+			</tr>
+			</tbody>
+		</table>
+
+		<br></br>
+		<br></br>
+	</div>
+
+	<br></br>
+	<br></br>
+	<br></br>
+
+	<form th:action="@{/user/reserveCart}" method="GET">
+		<input type="submit" class="btn btn-success" value="GO TO CART" />
+	</form>
+
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+<script type="text/javascript">
+    function changePassword() {
+        var success = 0;
+        var oldPassword = document.getElementById('oldPassword').value;
+        var newPassword = document.getElementById('newPassword').value;
+        var confirmNewPassword = document.getElementById('confirmNewPassword').value;
+        var username = document.getElementById('username').value;
+        var firstName = document.getElementById('firstName').value;
+        var lastName = document.getElementById('lastName').value;
+
+        if (confirmNewPassword === newPassword) {
+            //Check password policy..
+            if (newPassword.length > 5) {
+                //Check if contains uppercase, lowercase, numbers..
+                var upperCase = new RegExp('[A-Z]');
+                var lowerCase = new RegExp('[a-z]');
+                var numbers = new RegExp('[0-9]');
+                var count = 0;
+                if (newPassword.match(upperCase)) {
+                    console.log("UC");
+                    count++;
+                }
+                if (newPassword.match(lowerCase)) {
+                    console.log("LC");
+                    count++;
+                }
+                if (newPassword.match(numbers)) {
+                    console.log("NUM");
+                    count++;
+                }
+
+                //Check if contains special symbols..
+                var pattern = new RegExp(
+                    /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/);
+                if (pattern.test(newPassword)) {
+                    count++;
+                }
+
+                if (count > 2) {
+                    //Check if parts of name is found on the password..
+                    if (newPassword.indexOf(username) == -1
+                        && newPassword.indexOf(firstName) == -1
+                        && newPassword.indexOf(lastName) == -1) {
+                        success = 1;
+                    } else {
+                        console
+                            .log("Password contains username/part of names.");
+                        success = 0;
+                    }
+                } else {
+                    console.log("Password does not comply with rule 3.");
+                    success = 0;
+                }
+            } else {
+                console.log("Password length too short");
+                success = 0;
+            }
+        } else {
+            console.log("New password and confirm password did'nt match");
+            success = 0;
+        }
+
+        if (success == 0) {
+            alert("Failed to change password! Please try to follow our password policy/Recheck input old password.")
+        } else {
+            $("#password").val(newPassword);
+            $("#checkPassword").val(oldPassword);
+            $("#approved").submit();
+        }
+    }
+</script>
+</body>
+
+</html>

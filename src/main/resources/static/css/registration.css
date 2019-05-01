@@ -1,0 +1,30 @@
+body {
+	font-size: 14px;
+}
+
+.fillUp {
+	font-size: 18px;
+	text-align: center;
+}
+
+#header {
+	padding: 10px;
+	font-size: 40px;
+	font-weight: bold;
+	text-align: center;
+	color: green;
+}
+
+input {
+	width: 50%;
+}
+
+.container {
+	padding: 20px;
+	padding-bottom: 50px;
+}
+
+.dropdown {
+	float: left;
+	padding-right: 5px;
+}

@@ -1,0 +1,67 @@
+html{
+    overflow: hidden;
+}
+
+body{
+    background-color: whitesmoke;
+}
+
+a{
+    color: #003f22;
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.login-container{
+    padding: 250px 80px 10px 80px !important;
+    height: 100%;
+    background-color: red;
+}
+
+.register-container{
+    padding-top: 50px !important;
+    padding-left: 80px !important;
+    padding-right: 80px !important;
+    height: 1000px;
+    background-color: #00330e;
+    color: white;
+}
+
+.logo-container{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    margin-bottom: 70px !important;
+}
+
+.input-field{
+    width: inherit;
+}
+
+.btn-login{
+    background-color: #00330e;
+    text-decoration: none;
+}
+
+.btn-register{
+    background-color: white;
+    color: #00330e;
+    text-decoration: none;
+}
+
+#dlsu-logo{
+    width: 80px;
+    height: 80px;
+    position: relative;
+    top: 50%;
+}
+
+div.dlsu-text{
+    width: auto;
+    height: auto;
+    margin-left: 20px;
+}
+

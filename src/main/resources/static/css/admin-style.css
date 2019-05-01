@@ -1,0 +1,28 @@
+.tabs .tab a{
+    color: #00330e !important;
+}
+
+.tabs .indicator{
+    background-color: #00330e !important;
+}
+
+.action-tab{
+    margin-bottom: 30px;
+}
+
+.tab-containerdivs{
+    padding: 60px;
+    margin-top: 20px;
+    box-shadow: 3px 3px 1px #c8c8c8;
+    background-color: #fcfcfc;
+    height: auto;
+}
+
+#btn-create_user{
+    background-color: #00330e;
+    width: 300px;
+    height: 50px;
+    margin-top: 40px;
+    margin-left: 35%;
+    margin-bottom: 30px;
+}

@@ -1,0 +1,181 @@
+.nav ul 
+{
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+.nav li 
+{
+	float: left;
+	font-size: 20px;
+}
+
+.nav li a 
+{
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.nav li a:hover:not(.active) 
+{
+	background-color: #111;
+}
+
+.nav .active 
+{
+	background-color: #4CAF50;
+}
+		
+.nav form
+{
+	width: 350px;
+	margin-top: 10px;
+}
+		
+img
+{
+	max-width:100%;
+	padding: 5px;
+}
+		
+.my-list 
+{
+	width: 100%;
+	padding: 10px;
+	border: 1px solid #f5efef;
+	float: left;
+	margin: 15px 0;
+	border-radius: 5px;
+	box-shadow: 2px 3px 0px #e4d8d8;
+	position:relative;
+	overflow:hidden;
+	text-align: center;
+}
+		
+.my-list h3
+{
+	text-align: left;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 21px;
+	margin: 0px;
+	padding: 0px;
+	border-bottom: 1px solid #ccc4c4;
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+
+.my-list span
+{
+	float:left;
+	font-weight: bold;
+}
+
+.my-list span:last-child
+{
+	float:right;
+}
+
+.my-list .offer
+{
+	width: 100%;
+	float: left;
+	margin: 5px 0;
+	border-top: 1px solid #ccc4c4;
+	margin-top: 5px;
+	padding-top: 5px;
+	color: #afadad;
+}
+
+.detail 
+{
+	position: absolute;
+	top: -100%;
+	left: 0;
+	text-align: center;
+	background: #fff;height: 100%;width:100%;	
+}
+		
+.Part1
+{
+	background-color: #d3d3d3;
+	padding-bottom: 40px;
+	padding-top: 25px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+		
+.category
+{
+	font-size: 20px;
+	text-align: center;
+}
+		
+#shsh2
+{
+	font-weight: bold;
+	color: green;
+	font-size: 50px;
+	text-align: center;
+}
+		
+.footer
+{
+	padding-top: 5px;
+}
+				
+#footer-heading
+{
+	font-weight: bold;
+	text-align: center;
+}
+		
+.footer {
+	background-color: #3c3d41;
+	color: white;
+	padding: 20px;
+}
+		
+.footer h2
+{
+	text-align: center;
+	font-family: bold;
+	font-size: 40px;
+}
+		
+.column
+{
+	width: 25%;
+	float: left;
+}
+		
+.pagination 
+{
+	display: inline-block;
+	float: right;
+}
+
+.pagination a 
+{
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+}
+		
+.pagination a.active 
+{
+	background-color: #4CAF50;
+	color: white;
+}
+
+.pagination a:hover:not(.active) 
+{
+	background-color: #ddd;
+}

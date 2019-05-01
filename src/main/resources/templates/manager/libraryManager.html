@@ -1,0 +1,357 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>LIBRARY MANAGER - SHS Library Reservation System</title>
+
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import .css-->
+	<link type="text/css" rel="stylesheet" th:href="@{/css/materialize.min.css}"  media="screen,projection"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/main-style.css}"/>
+	<link type="text/css" rel="stylesheet" th:href="@{/css/admin-style.css}"/>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+	<script type="text/javascript">
+        function sendItemID(id) {
+            console.log(id);
+            var itemid = id;
+            $("#item_id").val(itemid);
+            $("#send1").submit();
+        }
+        function sendDeleteID(id) {
+            console.log(id);
+            var itemid = id;
+            $("#delete_id").val(itemid);
+            $("#deleteSend").submit();
+        }
+        function editItemID(id, itemName, author, publisher, yearPublished,
+                            location,itemType) {
+            //var id = id;
+            //var itemName = itemName;
+            //var author = author;
+            //var publisher = publisher;
+            //var yearPublished = yearPublished;
+            //var location = location;
+            $("#id").val(id);
+            $("#itemName").val(itemName);
+            $("#author").val(author);
+            $("#publisher").val(publisher);
+            $("#yearPublished").val(yearPublished);
+            $("#location").val(location);
+
+            if(itemType == 0){
+                $("#itemType").val('Book');
+            } else if(itemType == 1){
+                $("#itemType").val('Magazine');
+            } else if(itemType == 2){
+                $("#itemType").val('Thesis');
+            }
+
+            $('#editItemModal').modal();
+        }
+
+        function sendDeleteRoom(location, startTime, endTime) {
+            if (location == 1) {
+                $("#location").val("RoomNumber1");
+            } else if (location == 2) {
+                $("#location").val("RoomNumber2");
+            } else if (location == 3) {
+                $("#location").val("RoomNumber3");
+            } else if (location == 4) {
+                $("#location").val("RoomNumber4");
+            } else if (location == 5) {
+                $("#location").val("RoomNumber5");
+            }
+            $("#startTime").val(startTime);
+            $("#endTime").val(endTime);
+            $("#deleteRoom").submit();
+        }
+	</script>
+
+</head>
+
+<body>
+<!--Header-->
+<nav>
+	<div class="nav-wrapper">
+		<div class="logo-container">
+			<img id="dlsu-logo" th:src="@{/images/dlsu-logo.png}">
+			<div class="dlsu-text">
+				<font size="3"><span>De La Salle University - Manila</span></font>
+				<font size="2"><span>SHS Library Reservation System</span></font>
+			</div>
+
+			<ul id="nav-mobile" class="right">
+				<li>
+					<!-- Dropdown Trigger -->
+					<a class='dropdown-button' href='#' data-activates='dropdown1'><i class="material-icons prefix">settings</i></a>
+
+					<!-- Dropdown Structure -->
+					<ul id='dropdown1' class='dropdown-content'>
+						<li><a th:href="@{/logout}">Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+	<form id="send1" th:action="@{/ViewItem}" method="POST">
+		<input type="hidden" name="item_id" id="item_id" /> <input
+			type="hidden" name="staff" id="staff" value="1" />
+	</form>
+	<form id="deleteSend" th:action="@{/deleteItem}" method="POST">
+		<input type="hidden" name="delete_id" id="delete_id" /> <input
+			type="hidden" name="staff" id="staff" value="1" />
+	</form>
+	<form id="deleteRoom" th:action="@{/manager/override}" method="POST">
+		<input type="hidden" name="location" id="location" /> <input
+			type="hidden" name="startTime" id="startTime" /> <input
+			type="hidden" name="endTime" id="endTime" />
+	</form>
+	<!--Administrator Action Tabs-->
+	<div class="row">
+		<div class="col s12 action-tab">
+			<ul class="tabs">
+				<li class="tab col s4"><a href="#test1">Material List</a></li>
+				<li class="tab col s4"><a href="#test2">Add Material</a></li>
+				<li class="tab col s4"><a href="#test3">Meeting Rooms</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<div id="test1">
+		<h3>Material List</h3>
+		<table class="highlight responsive-table">
+			<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Publisher</th>
+				<th>Item Type</th>
+				<th>Status</th>
+				<th></th>
+				<th></th>
+				<th></th>
+			</tr>
+			</thead>
+
+			<tbody>
+			<tr th:each="item : ${items}">
+				<td th:text="${item.itemName}"></td>
+				<td th:text="${item.author}"></td>
+				<td th:text="${item.publisher}"></td>
+				<td><span th:if="${item.itemType} == 0">Book</span> <span
+						th:if="${item.itemType} == 1">Magazine</span> <span
+						th:if="${item.itemType} == 2">Thesis</span></td>
+				<td><span th:if="${item.itemStatus} == 0">Available</span> <span
+						th:if="${item.itemStatus} == 1">Borrowed</span></td>
+				<td>
+					<!--<button type="button" class="btn btn-success" th:onclick="'sendItemID(\''+ ${item.id} +'\');'">View</button>-->
+					<button th:onclick="'sendItemID(\''+ ${item.id} +'\');'" class="waves-effect waves-light btn">View</button>
+
+					<a th:if="${item.itemStatus} == 0" type="button" class="waves-effect waves-light btn"
+					   th:onclick="'editItemID(\''+ ${item.id} +'\',\''+ ${item.itemName}
+                                                +'\',\''+ ${item.author} +'\',\''+ ${item.publisher} +'\',\''+ ${item.yearPublished}
+                                                 +'\',\''+ ${item.location} +'\',\''+ ${item.itemType} +'\');'"
+					   href="#editItemModal">Edit</a>
+					<!--<button data-target="#editItemModal">Edit</button>-->
+					<button th:if="${item.itemStatus} == 1" type="button"
+							class="btn btn-warning"
+							th:onclick="'editItemID(\''+ ${item.id} +'\',\''+ ${item.itemName}
+                                                +'\',\''+ ${item.author} +'\',\''+ ${item.publisher} +'\',\''+ ${item.yearPublished}
+                                                 +'\',\''+ ${item.location} +'\');'"
+							disabled>Edit</button> <!-- Modal -->
+
+
+					<!-- Modal Structure -->
+					<div id="editItemModal" class="modal modal-fixed-footer">
+						<form th:action="@{/editItem}" method="POST">
+							<div class="modal-content">
+								<h4>Edit Material</h4>
+
+								<div id="editModal" class="modal-body">
+									<input type="hidden" name="id" id="id" /> <Label>Title: &nbsp</Label>
+									<input type="text" name="itemName" id="itemName" /> <br> </br> <Label>Author: &nbsp</Label>
+									<input type="text" id="author" name="author" /> <br> </br> <Label>Publisher:
+									&nbsp</Label> <input type="text" id="publisher" name="publisher" />
+									<br> </br> <Label>Year Published: &nbsp</Label> <input
+										type="text" id="yearPublished" name="yearPublished" /> <br>
+									</br> <Label>Location: &nbsp</Label>
+									<input type="text" id="location" name="location" /> <br> </br> <Label>ItemType:
+									&nbsp</Label> <input type="text" id="itemType" name="itemType" />
+									<input type="hidden" name="staff" id="staff" value="1" />
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<input type="submit" class="btn btn-success" value="Confirm Edit" />
+								<a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+							</div>
+						</form>
+					</div>
+
+					<button th:if="${item.itemStatus} == 0"
+							th:onclick="'sendDeleteID(\''+ ${item.id} +'\');'" type="button"
+							class="btn btn-danger">Delete</button>
+					<button th:if="${item.itemStatus} == 1"
+							th:onclick="'sendDeleteID(\''+ ${item.id} +'\');'" type="button"
+							class="btn btn-danger" disabled>Delete</button>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div id="test2">
+		<div class="tab-containerdivs">
+			<form id="addItem" th:action="@{/addItem}" method="POST">
+				<div class="row">
+					<div class="input-field col s6">
+						<input placeholder="" id="itemName" name="itemName" maxlength="255" type="text" class="validate" required>
+						<label for="itemName">Title</label>
+					</div>
+					<div class="input-field col s6">
+						<input placeholder="" id="author" name="author" maxlength="255" type="text" class="validate" required>
+						<label for="author">Author</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="location" name="location" type="text" class="validate" maxlength="255" required>
+						<label for="location">Location</label>
+					</div>
+
+					<div class="input-field col s6">
+						<input id="publisher" name="publisher" type="text" maxlength="255" class="validate" required>
+						<label for="publisher">Publisher</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s6">
+						<input id="yearPublished" name="yearPublished" type="text" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="validate" maxlength="4" required>
+						<label for="yearPublished">Year</label>
+					</div>
+
+					<div class="input-field col s6">
+						<select class="browser-default" name="itemType" id="itemType">
+							<option value="" disabled>Choose your option</option>
+							<option value="0">Book</option>
+							<option value="1">Magazine</option>
+							<option value="2">Thesis</option>
+						</select>
+					</div>
+				</div>
+
+				<input type="hidden" name="staff" id="staff" value="1" />
+				<button id="btn-create_user" class="btn waves-effect waves-light" type="submit" name="action">Add Material</button>
+			</form>
+		</div>
+	</div>
+
+	<div id="test3">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Room Location</th>
+				<th>Start Time</th>
+				<th>End Time</th>
+				<th>Reserved By</th>
+				<th>Status</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="schedule : ${schedule1}">
+				<td>Room Number 1</td>
+				<td th:text="${schedule.startTime}"></td>
+				<td th:text="${schedule.endTime}"></td>
+				<td th:text="${schedule.username}"></td>
+				<td><span th:if="${schedule.status} == 0">Available</span> <span
+						th:if="${schedule.status} == 1">NOT Available</span></td>
+				<td><button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 1"
+							th:onclick="'sendDeleteRoom(1,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'">Override</button>
+					<button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 0"
+							th:onclick="'sendDeleteRoom(1,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'"disabled>Override</button></td>
+			</tr>
+			<tr th:each="schedule : ${schedule2}">
+				<td>Room Number 2</td>
+				<td th:text="${schedule.startTime}"></td>
+				<td th:text="${schedule.endTime}"></td>
+				<td th:text="${schedule.username}"></td>
+				<td><span th:if="${schedule.status} == 0">Available</span> <span
+						th:if="${schedule.status} == 1">NOT Available</span></td>
+				<td><button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 1"
+							th:onclick="'sendDeleteRoom(2,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'">Override</button>
+					<button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 0"
+							th:onclick="'sendDeleteRoom(2,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'"
+							disabled>Override</button></td>
+			</tr>
+			<tr th:each="schedule : ${schedule3}">
+				<td>Room Number 3</td>
+				<td th:text="${schedule.startTime}"></td>
+				<td th:text="${schedule.endTime}"></td>
+				<td th:text="${schedule.username}"></td>
+				<td><span th:if="${schedule.status} == 0">Available</span> <span
+						th:if="${schedule.status} == 1">NOT Available</span></td>
+				<td><button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 1"
+							th:onclick="'sendDeleteRoom(3,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'">Override</button>
+					<button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 0"
+							th:onclick="'sendDeleteRoom(3,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'"
+							disabled>Override</button></td>
+			</tr>
+			<tr th:each="schedule : ${schedule4}">
+				<td>Room Number 4</td>
+				<td th:text="${schedule.startTime}"></td>
+				<td th:text="${schedule.endTime}"></td>
+				<td th:text="${schedule.username}"></td>
+				<td><span th:if="${schedule.status} == 0">Available</span> <span
+						th:if="${schedule.status} == 1">NOT Available</span></td>
+				<td><button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 1"
+							th:onclick="'sendDeleteRoom(4,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'">Override</button>
+					<button type="button" class="btn btn-danger"
+							th:if="${schedule.status} == 0"
+							th:onclick="'sendDeleteRoom(4,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'"
+							disabled>Override</button></td>
+			</tr>
+			<tr th:each="schedule : ${schedule5}">
+				<td>Room Number 5</td>
+				<td th:text="${schedule.startTime}"></td>
+				<td th:text="${schedule.endTime}"></td>
+				<td th:text="${schedule.username}"></td>
+				<td><span th:if="${schedule.status} == 0">Available</span> <span
+						th:if="${schedule.status} == 1">NOT Available</span></td>
+				<td><button th:if="${schedule.status} == 1" type="button"
+							class="btn btn-danger"
+							th:onclick="'sendDeleteRoom(5,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'">Override</button>
+					<button th:if="${schedule.status} == 0" type="button"
+							class="btn btn-danger"
+							th:onclick="'sendDeleteRoom(5,\''+ ${schedule.startTime} +'\',\''+ ${schedule.endTime}+'\');'"
+							disabled>Override</button></td>
+			</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<br></br>
+	<br></br>
+	<br></br>
+
+</div>
+
+<!--Import jQuery before materialize.js-->
+<script type="text/javascript" th:src="@{/js/jquery-2.1.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/materialize.min.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,212 @@
+.footer
+{
+	padding-top: 5px;
+}
+				
+#footer-heading
+{
+	font-weight: bold;
+	text-align: center;
+}
+		
+#welcome
+{
+	text-align: center;
+	font-size:20px;
+	color: white;
+}
+		
+#shsh2
+{
+	font-weight: bold;
+	text-align: center;
+	color: green;
+	font-size: 50px;
+}
+		
+#shsDesc
+{
+	text-align: center;
+	font-size: 20px;
+}
+		
+.Part1
+{
+	background-color: #d3d3d3;
+	padding-bottom: 40px;
+	padding-top: 25px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+		
+.footer {
+	background-color: #3c3d41;
+	color: white;
+	padding: 20px;
+}
+		
+.footer h2
+{
+	text-align: center;
+	font-family: bold;
+	font-size: 40px;
+}
+		
+.column
+{
+	width: 25%;
+	float: left;
+}
+		
+.nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+.nav li {
+	float: left;
+	font-size: 20px;
+}
+
+.nav li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.nav li a:hover:not(.active) {
+	background-color: #111;
+}
+
+.nav .active {
+	background-color: #4CAF50;
+}
+		
+.nav form
+{
+	width: 350px;
+	margin-top: 10px;
+}
+		
+.card 
+{
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+
+.card 
+{
+	margin-top: 10px;
+	box-sizing: border-box;
+	border-radius: 2px;
+	background-clip: padding-box;
+}
+
+.card span.card-title
+{
+	color: #fff;
+	font-size: 24px;
+	font-weight: 300;
+	text-transform: uppercase;
+}
+
+.card .card-image 
+{
+	position: relative;
+	overflow: hidden;
+}
+		
+.card .card-image img
+{
+	border-radius: 2px 2px 0 0;
+	background-clip: padding-box;
+	position: relative;
+	z-index: -1;
+}
+		
+.card .card-image span.card-title 
+{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 16px;
+}
+		
+.card .card-content {
+	padding: 16px;
+	border-radius: 0 0 2px 2px;
+	background-clip: padding-box;
+	box-sizing: border-box;
+}
+		
+.card .card-content p 
+{
+	margin: 0;
+	color: inherit;
+}
+		
+.card .card-content span.card-title 
+{
+	line-height: 48px;
+}
+		
+.dashboard .column1
+{
+	width: 50%;
+	float: left;
+}
+		
+.dashboard .column2
+{
+	width: 50%;
+	float: left;
+}
+		
+.dashboard .column3
+{
+	width: 50%;
+	float: left;
+}
+		
+.dashboard .container
+{
+	margin: 0;
+	width: 100%;
+}
+		
+.card-image .container
+{
+	padding: 10px;
+}
+		
+.card-title
+{
+	font-family: bold;
+	font-size: 40px;
+	text-align: center;
+	color: white;
+	background-color: green;
+	border-radius: 0 5px 0 0;
+}
+		
+.card
+{
+	height: 300px;
+}
+		
+.card-image
+{
+	height: 250px;
+}
+		
+.growin:hover
+{
+	-webkit-transform: scale(1.03);
+	-ms-transform: scale(1.03);
+	transform: scale(1.03);
+	transition: .5s ease;
+}

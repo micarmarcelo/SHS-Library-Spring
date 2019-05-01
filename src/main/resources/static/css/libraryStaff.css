@@ -1,0 +1,115 @@
+.nav ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #333;
+}
+
+.nav li {
+	float: left;
+	font-size: 20px;
+}
+
+.nav li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.nav
+ 
+li
+ 
+a
+:hover
+:not
+ 
+(
+.active
+ 
+)
+{
+background-color
+:
+ 
+#111
+;
+
+
+}
+.nav .active {
+	background-color: #4CAF50;
+}
+
+.nav form {
+	width: 350px;
+	margin-top: 10px;
+}
+
+.Part1 {
+	background-color: #d3d3d3;
+	padding-bottom: 40px;
+	padding-top: 25px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-align: center;
+	font-size: 15px;
+}
+
+#shsh2 {
+	font-weight: bold;
+	color: green;
+	font-size: 50px;
+	text-align: center;
+}
+
+.footer {
+	padding-top: 5px;
+}
+
+#footer-heading {
+	font-weight: bold;
+	text-align: center;
+}
+
+.footer {
+	background-color: #3c3d41;
+	color: white;
+	padding: 20px;
+}
+
+.footer h2 {
+	text-align: center;
+	font-family: bold;
+	font-size: 40px;
+}
+
+.column {
+	width: 25%;
+	float: left;
+}
+
+.items, .reservations, .addItems, .itemsReserved {
+	font-size: 18px;
+}
+
+.addItems h2, .items h2, .reservations h2, .itemsReserved h2 {
+	font-size: 30px;
+	color: green;
+}
+
+.itemsRightSide, .reservationsRightSide {
+	float: right;
+}
+
+.reservations table, .items table, .itemsReserved table {
+	overflow-y: scroll;
+	white-space: nowrap;
+}
+
+.addItems input {
+	width: 23%;
+}
